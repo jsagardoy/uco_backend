@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const data = require('data');
+const operationRoutes = require ('../routes/operation.routes.js')
+
 
 const app = express();
 
@@ -10,7 +12,9 @@ app.use(bodyParser.json());
 
 data.connect('mongodb://localhost/ucoDB');
 
-app.get('/api/operations',(req,res)=>{
+app.use('/api/operations',operationRoutes(data.Operations));
+
+/* app.get('/api/operations',(req,res)=>{
     const result =  data.Operations
                         .find()
                         .exec()
@@ -23,7 +27,7 @@ app.get('/api/operations',(req,res)=>{
                             console.log("fallo");
                     
                         })
-})
+}) */
 
 
 app.get ('/',(req,res)=>{
